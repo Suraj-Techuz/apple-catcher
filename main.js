@@ -9,17 +9,17 @@ const sizes = {
 const initialSpeedDown = 200;
 
 const gameStartDiv = document.querySelector("#gameStartDiv");
-const gameStartBtn = document.querySelector("#gameStartBtn")
-const gameEndDiv = document.querySelector("#gameEndDiv")
-const gameWinLoseSpan = document.querySelector("#gameWinLoseSpan")
-const gameEndScoreSpan = document.querySelector("#gameEndScoreSpan")
+const gameStartBtn = document.querySelector("#gameStartBtn");
+const gameEndDiv = document.querySelector("#gameEndDiv");
+const gameWinLoseSpan = document.querySelector("#gameWinLoseSpan");
+const gameEndScoreSpan = document.querySelector("#gameEndScoreSpan");
 
 class GameScene extends Phaser.Scene {
     constructor() {
         super("scene-game");
         this.player;
         this.cursor;
-        this.playerSpeed = this.speedDown ? this.speedDown + 100 : initialSpeedDown + 50;
+        this.playerSpeed = initialSpeedDown + 50; // Removed the dependency on this.speedDown for initialization
         this.target;
         this.points = 0;
         this.textScore;
@@ -27,7 +27,7 @@ class GameScene extends Phaser.Scene {
         this.timedEvent;
         this.remainingTime;
         this.coinMusic;
-        this.bgMusic;
+        this.bgMusic; // Declare bgMusic here
         this.emitter;
         this.speedDown = initialSpeedDown;
     }
@@ -36,19 +36,18 @@ class GameScene extends Phaser.Scene {
         this.load.image("bg", "/assets/bg.png");
         this.load.image("basket", "/assets/basket.png");
         this.load.image("apple", "/assets/apple.png");
-        this.load.image("money", "assets/money.png")
+        this.load.image("money", "assets/money.png");
 
         this.load.audio("coin", "/assets/coin.mp3");
         this.load.audio("bgMusic", "/assets/bgMusic.mp3");
     }
 
     create() {
-        this.scene.pause("scene-game")
+        this.scene.pause("scene-game");
 
+        // Initialize sounds here
         this.coinMusic = this.sound.add("coin");
         this.bgMusic = this.sound.add("bgMusic");
-        // this.bgMusic.play();
-        // this.bgMusic.stop();
 
         this.add.image(0, 0, "bg").setOrigin(0, 0);
         this.target = this.physics.add.image(getRandomNumber(100, 400), getRandomNumber(50, 100), "apple").setOrigin(0, 0);
@@ -58,7 +57,7 @@ class GameScene extends Phaser.Scene {
         this.player.setImmovable(true);
         this.player.body.allowGravity = false;
         this.player.setCollideWorldBounds(true);
-        this.player.setSize(60, 15).setOffset(18, 70)
+        this.player.setSize(60, 15).setOffset(18, 70);
 
         // Pass the targetHit function as a callback
         this.physics.add.overlap(this.target, this.player, this.targetHit, null, this);
@@ -74,20 +73,20 @@ class GameScene extends Phaser.Scene {
             fill: "#000000"
         });
 
-        this.timedEvent = this.time.delayedCall(15000, this.gameOver, [], this)
+        this.timedEvent = this.time.delayedCall(15000, this.gameOver, [], this);
         this.emitter = this.add.particles(0, 0, "money", {
             speed: 100,
             gravityY: this.speedDown - 200,
             scale: 0.04,
             duration: 100,
             emitting: false
-        })
-        this.emitter.startFollow(this.player, this.player.width / 2, this.player.height / 2, true)
+        });
+        this.emitter.startFollow(this.player, this.player.width / 2, this.player.height / 2, true);
     }
 
     update() {
-        this.remainingTime = this.timedEvent.getRemainingSeconds()
-        this.textTime.setText(`Remaining Time: ${Math.round(this.remainingTime).toString()}`)
+        this.remainingTime = this.timedEvent.getRemainingSeconds();
+        this.textTime.setText(`Remaining Time: ${Math.round(this.remainingTime).toString()}`);
 
         if (this.target.y >= sizes.height) {
             this.target.setY(getRandomNumber(50, 200));
@@ -128,10 +127,10 @@ class GameScene extends Phaser.Scene {
             gameWinLoseSpan.textContent = "Win! 🏆";
         } else {
             gameEndScoreSpan.textContent = this.points;
-            gameWinLoseSpan.textContent = "Lose! 💔"
+            gameWinLoseSpan.textContent = "Lose! 💔";
         }
 
-        gameEndDiv.style.display = 'flex'
+        gameEndDiv.style.display = 'flex';
     }
 }
 
@@ -159,6 +158,11 @@ const game = new Phaser.Game(config);
 gameStartBtn.addEventListener("click", () => {
     gameStartDiv.style.display = "none";
     const gameScene = game.scene.getScene("scene-game");
-    gameScene.bgMusic.play();
+    
+    // Ensure bgMusic is defined before playing it
+    if (gameScene.bgMusic) {
+        gameScene.bgMusic.play();
+    }
+    
     game.scene.resume("scene-game");
 });
