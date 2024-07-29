@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="Play Apple Catcher! A fun and fast-paced game where you have 30 seconds to catch as many apples as you can. Catch more than 10 apples to win!">
+  <meta name="keywords" content="Apple Catcher, Phaser game, HTML5 game, Catching game, Fun games, Browser game">
+  <meta name="author" content="Suraj">
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.ico" />
+  <title>Apple Catcher</title>
+
+  <!-- Open Graph Metadata -->
+  <meta property="og:title" content="Apple Catcher Game" />
+  <meta property="og:description"
+    content="Catch apples in this fun and fast-paced game. Try to catch more than 10 apples in 30 seconds to win!" />
+  <meta property="og:image" content="/assets/apple-catcher-preview.png" />
+  <meta property="og:url" content="https://yourwebsite.com/apple-catcher" />
+  <meta property="og:type" content="website" />
+
+  <!-- Twitter Card Metadata -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Apple Catcher Game" />
+  <meta name="twitter:description"
+    content="Catch apples in this fun and fast-paced game. Try to catch more than 10 apples in 30 seconds to win!" />
+  <meta name="twitter:image" content="/assets/apple-catcher-preview.png" />
+  <meta name="twitter:site" content="@yourtwitterhandle" />
+  <meta name="twitter:creator" content="@yourtwitterhandle" />
+
+  <!-- Additional Metadata -->
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#ffffff" />
+</head>
+
+<body>
+  <header>
+    <p>Phaser Demo | Apple Catcher</p>
+  </header>
+  <main>
+    <canvas id="gameCanvas"></canvas>
+    <div id="gameStartDiv" class="gameUI">
+      <h1>Apple Catcher</h1>
+      <p>You have 15 seconds to catch apples!</p>
+      <p>If you catch more than 10 apples you win.</p>
+      <p>If you catch less than 10 apples you lose.</p>
+      <p>Click the start button to begin</p>
+      <button id="gameStartBtn">
+        <p>Start</p>
+      </button>
+    </div>
+    <div id="gameEndDiv" class="gameUI">
+      <p>Game Over</p>
+      <h1>You <span id="gameWinLoseSpan"></span></h1>
+      <h1>Final Score: <span id="gameEndScoreSpan"></span></h1>
+      <p>Refresh the page to play again</p>
+    </div>
+  </main>
+  <footer>
+    <p>Created by Suraj 2024</p>
+  </footer>
+  <script type="module" src="/main.js"></script>
+</body>
+
+</html>
